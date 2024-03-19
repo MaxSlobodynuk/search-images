@@ -1,25 +1,16 @@
-import { Component } from "react";
-import css from 'styles.module.css'
+import React from 'react';
+import css from 'styles.module.css';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
-class ImageGallery extends Component {
-  state = {};
-  render() {
-    const hits = this.props.hits;
-      return (
-        <ul className={css.ImageGallery}>
-          {hits &&
-            hits.map(item => (
-              <li key={item.id} className={css.ImageGalleryItem}>
-                <img
-                  className={css.ImageGalleryItemImage}
-                  src={item.webformatURL}
-                  alt={item.user}
-                />
-              </li>
-            ))}
-        </ul>
-      );
-  }
-}
+const ImageGallery = ({ hits, openModal }) => {
+  return (
+    <ul className={css.ImageGallery}>
+      {hits &&
+        hits.map(item => (
+          <ImageGalleryItem key={item.id} item={item} openModal={openModal} />
+        ))}
+    </ul>
+  );
+};
 
 export default ImageGallery;

@@ -1,47 +1,90 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import css from 'styles.module.css';
 
-class Searchbar extends Component {
-  state = {
-    value: '',
-  };
+import React from 'react'
 
-  handleChange = ({ target }) => {
-    this.setState({ value: target.value });
-  };
+const Searchbar = ({onSubmit}) => {
+  const [value, setValue] = useState('');
 
-  handleSubmit = e => {
-    e.preventDefault();
+  const handleChange = ({ target }) => {
+      setValue(target.value.toLowerCase());
+    };
 
-    if (this.state.value.trim() === '') {
-      return;
-    }
+    const handleSubmit = e => {
+      e.preventDefault();
 
-    this.props.onSubmit(this.state.value);
-    this.setState({ value: '' });
-  };
+      if (value.trim() === '') {
+        return;
+      }
 
-  render() {
-    return (
-      <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className="btn btn-warning">
-            <span className="button-label">Search</span>
-          </button>
+      onSubmit(value);
+      setValue('')
+    };
 
-          <input
-            onChange={this.handleChange}
-            className="form-control"
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={this.state.value}
-          />
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className="btn btn-warning">
+          <span className="button-label">Search</span>
+        </button>
+
+        <input
+          onChange={handleChange}
+          className="form-control"
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          value={value}
+        />
+      </form>
+    </header>
+  );
 }
 
-export default Searchbar;
+export default Searchbar
+
+// class Searchbar extends Component {
+//   state = {
+//     value: '',
+//   };
+
+//   handleChange = ({ target }) => {
+//     this.setState({ value: target.value.toLowerCase() });
+//   };
+
+//   handleSubmit = e => {
+//     e.preventDefault();
+
+//     if (this.state.value.trim() === '') {
+//       return;
+//     }
+
+//     this.props.onSubmit(this.state.value);
+//     this.setState({ value: '' });
+//   };
+
+//   render() {
+//     return (
+//       <header className={css.Searchbar}>
+//         <form className={css.SearchForm} onSubmit={this.handleSubmit}>
+//           <button type="submit" className="btn btn-warning">
+//             <span className="button-label">Search</span>
+//           </button>
+
+//           <input
+//             onChange={this.handleChange}
+//             className="form-control"
+//             type="text"
+//             autoComplete="off"
+//             autoFocus
+//             placeholder="Search images and photos"
+//             value={this.state.value}
+//           />
+//         </form>
+//       </header>
+//     );
+//   }
+// }
+
+// export default Searchbar;

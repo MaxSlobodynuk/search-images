@@ -177,6 +177,10 @@ img {
   max-height: calc(100vh - 24px);
 }
 
+.ModalImage {
+  width: 500px;
+}
+
 /*
 * Стили компонента Buton (Load more)
 */
